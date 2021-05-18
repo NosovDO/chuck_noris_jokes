@@ -1,3 +1,7 @@
+const fieldCategory = document.querySelector('.categories');
+const btn = document.querySelector('.btn');
+const jokes = document.querySelector('.jokes');
+
 class FetchServices {
     static shared = new FetchServices();
     constructor() {
@@ -13,3 +17,17 @@ class FetchServices {
     }
 }
 
+function addSelect() {
+    FetchServices.shared.getCatigories()
+    .then(item => {
+        btn.disabled = false;
+        item.forEach(element => fieldCategory.innerHTML += `<option>${element}</option>`
+        )})
+}
+
+addSelect();
+
+btn.addEventListener('click', () => {
+    FetchServices.shared.getCatigoriesJokes(fieldCategory.value)
+    .then(item => jokes.innerHTML = `<h1>${item.value}</h1>`)
+});
